@@ -43,7 +43,7 @@ jobs:
           git config --global user.name "Canonical LXD Bot"
           git config --global user.email "lxd@lists.canonical.com"
           localRev=$(git rev-parse HEAD)
-          export GOPROXY=direct go install github.com/canonical/lxd-ci/lxd-snapcraft@latest
+          GOPROXY=direct go install github.com/canonical/lxd-ci/lxd-snapcraft@latest
           git clone -b "${TARGET}" git+ssh://lxdbot@git.launchpad.net/~canonical-lxd/microcloud ~/microcloud-pkg-snap-lp
           ver=($(lxd-snapcraft -package microcloud -get-version -file ~/microcloud-pkg-snap-lp/snapcraft.yaml))
           rsync -a --exclude .git --delete . ~/microcloud-pkg-snap-lp/
