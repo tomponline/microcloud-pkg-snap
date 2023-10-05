@@ -45,10 +45,10 @@ jobs:
           localRev=$(git rev-parse HEAD)
           go install github.com/canonical/lxd-ci/lxd-snapcraft@latest
           git clone -b "${TARGET}" git+ssh://lxdbot@git.launchpad.net/~canonical-lxd/microcloud ~/microcloud-pkg-snap-lp
-          ver=($(lxd-snapcraft -package microcloud -get-version -file ~/microcloud-pkg-snap-lp/snapcraft.yaml))
+          originVer=($(lxd-snapcraft -package microcloud -get-version -file snapcraft.yaml))
           rsync -a --exclude .git --delete . ~/microcloud-pkg-snap-lp/
           cd ~/microcloud-pkg-snap-lp
-          lxd-snapcraft -package microcloud -set-version "${ver[0]}" -set-source-commit "${ver[1]}"
+          lxd-snapcraft -package -set-version "${originVer[0]}-${localRev:0:7}" -set-source-commit ""
           git add --all
           git commit --all --quiet -s --allow-empty -m "Automatic upstream build (${TARGET})" -m "Upstream commit: ${localRev}"
           git show
