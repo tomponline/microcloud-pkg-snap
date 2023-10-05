@@ -57,6 +57,7 @@ parts:
   raft:
     build-attributes: [core22-step-dependencies]
     source: https://github.com/canonical/raft
+    source-tag: v0.18.0
     source-type: git
     source-depth: 1
     plugin: autotools
