@@ -101,8 +101,8 @@ parts:
 
       # Build the binaries
       cd microcloud
-      go build -o "${SNAPCRAFT_PART_INSTALL}/bin/microcloud" -tags=agent ./cmd/microcloud
-      go build -o "${SNAPCRAFT_PART_INSTALL}/bin/microcloudd" -tags=agent,libsqlite3 ./cmd/microcloudd
+      go build -trimpath -o "${SNAPCRAFT_PART_INSTALL}/bin/microcloud" -tags=agent ./cmd/microcloud
+      go build -trimpath -o "${SNAPCRAFT_PART_INSTALL}/bin/microcloudd" -tags=agent,libsqlite3 ./cmd/microcloudd
     prime:
       - bin/microcloud
       - bin/microcloudd
