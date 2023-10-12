@@ -2,7 +2,7 @@ name: microcloud
 base: core22
 assumes:
  - snapd2.59
-version: "1.0"
+version: "1.1"
 grade: stable
 source-code: https://github.com/canonical/microcloud.git
 summary: Fully automated private clouds
@@ -79,6 +79,7 @@ parts:
   microcloud:
     build-attributes: [core22-step-dependencies]
     source: https://github.com/canonical/microcloud
+    source-tag: microcloud-1.1
     source-type: git
     source-depth: 1
     after:
