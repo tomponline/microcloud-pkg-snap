@@ -48,7 +48,7 @@ jobs:
           originVer=($(lxd-snapcraft -package microcloud -get-version -file snapcraft.yaml))
           rsync -a --exclude .git --delete . ~/microcloud-pkg-snap-lp/
           cd ~/microcloud-pkg-snap-lp
-          lxd-snapcraft -package -set-version "${originVer[0]}-${localRev:0:7}" -set-source-commit ""
+          lxd-snapcraft -package microcloud -set-version "${originVer[0]}-${localRev:0:7}" -set-source-commit ""
           git add --all
           git commit --all --quiet -s --allow-empty -m "Automatic upstream build (${TARGET})" -m "Upstream commit: ${localRev}"
           git show
