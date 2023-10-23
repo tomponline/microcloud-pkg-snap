@@ -1,4 +1,10 @@
 #!/bin/sh
 export DQLITE_SOCKET="@snap.${SNAP_INSTANCE_NAME}.dqlite"
 
-exec microcloudd --state-dir "${SNAP_COMMON}/state"
+MICROCLOUDD="microcloudd"
+if [ -x "${SNAP_COMMON}/microcloudd.debug" ]; then
+    MICROCLOUDD="${SNAP_COMMON}/microcloudd.debug"
+    echo "==> WARNING: Using a custom debug MicroCloud binary!"
+fi
+
+exec "${MICROCLOUDD}" --state-dir "${SNAP_COMMON}/state"
