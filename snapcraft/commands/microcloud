@@ -1,2 +1,7 @@
 #!/bin/sh
-exec microcloud --state-dir "${SNAP_COMMON}/state" "$@"
+MICROCLOUD="microcloud"
+if [ -x "${SNAP_COMMON}/microcloud.debug" ]; then
+    MICROCLOUD="${SNAP_COMMON}/microcloud.debug"
+fi
+
+exec "${MICROCLOUD}" --state-dir "${SNAP_COMMON}/state" "$@"
