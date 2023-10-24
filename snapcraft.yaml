@@ -81,7 +81,6 @@ parts:
     source: https://github.com/canonical/microcloud
     source-tag: microcloud-1.1
     source-type: git
-    source-depth: 1
     after:
       - dqlite
     build-snaps:
@@ -96,6 +95,14 @@ parts:
       go get -d -v -tags=agent ./...
     override-build: |
       set -ex
+
+      git config user.email "noreply@lists.canonical.com"
+      git config user.name "MicroCloud snap builder"
+
+      git cherry-pick e50cd006e8773a3dfaa020c9997eb7789253ee15 # microcloud/cmd/microcloud: Use stdin for preseed.yaml
+      git cherry-pick b1553cb2f3ea111fb497e1d60cec7b3eec9680c6 # microcloud/test/suites: Rename conflicting variable name
+      git cherry-pick b19d1b537e9b9099bb5ddd2f8643ec302a4d1b54 # microcloud/test/includes: Default to edge snap if local one not provided
+      git cherry-pick 404827f070282e47f3a033638587f460dd5c034a # microcloud/test/includes: Fix instance removal between tests
 
       # Setup build environment
       export CGO_CFLAGS="-I${SNAPCRAFT_STAGE}/include/ -I${SNAPCRAFT_STAGE}/usr/local/include/"
