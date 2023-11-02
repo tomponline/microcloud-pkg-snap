@@ -103,6 +103,14 @@ parts:
       git cherry-pick b1553cb2f3ea111fb497e1d60cec7b3eec9680c6 # microcloud/test/suites: Rename conflicting variable name
       git cherry-pick b19d1b537e9b9099bb5ddd2f8643ec302a4d1b54 # microcloud/test/includes: Default to edge snap if local one not provided
       git cherry-pick 404827f070282e47f3a033638587f460dd5c034a # microcloud/test/includes: Fix instance removal between tests
+      git cherry-pick 00d6fca0db2503f29477ea124162ba7a267ba69f # microcloud/service: Add ZFS pool description
+      git cherry-pick 6700eabb7ce0dfe4fb3c3d95fad7e260e4486a66 # microcloud/mdns: Include net.Interface in NetworkInfo
+      git cherry-pick 201968ec5191d7ddfecca700be6c1efdd58b49c9 # microcloud/mdns: Pass the interface to the mdns handler
+      git cherry-pick 71567eadb4192fd1242820584069c29077f7fd7c # microcloud/cmd/microcloud: Pass network interface through initial networking questions
+      git cherry-pick 283efac02aeea6006c39201b939bb774e426bdfe # microcloud/cmd/microcloud: Update usages of askAddress and NetworkInfo
+      git cherry-pick 4e0da91debc563c8eb5cfbc3170d1dd0d13de7ba # microcloud/cmd/microcloud: Add option to specify interface in preseed
+      git cherry-pick 88c7ef73819f2a01e7e7161d685f50860a1b1072 # microcloud/test/suites: Update preseed test
+      git cherry-pick a8584be34dea149e736a2c8e9a1d902523911618 # microcloud/test/includes: Fix typo in testsuite
 
       # Setup build environment
       export CGO_CFLAGS="-I${SNAPCRAFT_STAGE}/include/ -I${SNAPCRAFT_STAGE}/usr/local/include/"
