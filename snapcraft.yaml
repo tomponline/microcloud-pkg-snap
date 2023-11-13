@@ -111,6 +111,7 @@ parts:
       git cherry-pick 4e0da91debc563c8eb5cfbc3170d1dd0d13de7ba # microcloud/cmd/microcloud: Add option to specify interface in preseed
       git cherry-pick 88c7ef73819f2a01e7e7161d685f50860a1b1072 # microcloud/test/suites: Update preseed test
       git cherry-pick a8584be34dea149e736a2c8e9a1d902523911618 # microcloud/test/includes: Fix typo in testsuite
+      git cherry-pick f19707ad48062c350947a3b432a1e6a6022c638e # microcloud/service: Properly broadcast available interfaces over those interfaces
 
       # Setup build environment
       export CGO_CFLAGS="-I${SNAPCRAFT_STAGE}/include/ -I${SNAPCRAFT_STAGE}/usr/local/include/"
