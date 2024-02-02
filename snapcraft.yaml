@@ -31,7 +31,6 @@ apps:
 
 parts:
   dqlite:
-    build-attributes: [core22-step-dependencies]
     after:
       - raft
     source: https://github.com/canonical/dqlite
@@ -54,7 +53,6 @@ parts:
       - lib/*/libuv*
 
   raft:
-    build-attributes: [core22-step-dependencies]
     source: https://github.com/canonical/raft
     source-type: git
     source-depth: 1
@@ -75,7 +73,6 @@ parts:
       - lib/*/libuv.so*
 
   microcloud:
-    build-attributes: [core22-step-dependencies]
     source: https://github.com/canonical/microcloud
     source-type: git
     source-depth: 1
