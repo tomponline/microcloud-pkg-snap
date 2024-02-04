@@ -71,6 +71,7 @@ parts:
     prime:
       - lib/libraft*so*
       - lib/*/libuv.so*
+      #- lib/*/liblz4.so*  # use liblz4.so from the base snap
 
   microcloud:
     source: https://github.com/canonical/microcloud
