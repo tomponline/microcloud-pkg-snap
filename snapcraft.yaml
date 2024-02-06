@@ -31,7 +31,6 @@ apps:
 
 parts:
   dqlite:
-    build-attributes: [core22-step-dependencies]
     after:
       - raft
     source: https://github.com/canonical/dqlite
@@ -54,7 +53,6 @@ parts:
       - lib/*/libuv*
 
   raft:
-    build-attributes: [core22-step-dependencies]
     source: https://github.com/canonical/raft
     source-type: git
     source-depth: 1
@@ -73,9 +71,9 @@ parts:
     prime:
       - lib/libraft*so*
       - lib/*/libuv.so*
+      #- lib/*/liblz4.so*  # use liblz4.so from the base snap
 
   microcloud:
-    build-attributes: [core22-step-dependencies]
     source: https://github.com/canonical/microcloud
     source-type: git
     source-depth: 1
@@ -95,18 +93,18 @@ parts:
       set -ex
 
       # Setup build environment
-      export CGO_CFLAGS="-I${SNAPCRAFT_STAGE}/include/ -I${SNAPCRAFT_STAGE}/usr/local/include/"
-      export CGO_LDFLAGS="-L${SNAPCRAFT_STAGE}/lib/ -L${SNAPCRAFT_STAGE}/usr/local/lib/"
+      export CGO_CFLAGS="-I${CRAFT_STAGE}/include/ -I${CRAFT_STAGE}/usr/local/include/"
+      export CGO_LDFLAGS="-L${CRAFT_STAGE}/lib/ -L${CRAFT_STAGE}/usr/local/lib/"
       export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 
       # Build the binaries
       cd microcloud
-      go build -trimpath -o "${SNAPCRAFT_PART_INSTALL}/bin/microcloud" -tags=agent ./cmd/microcloud
-      go build -trimpath -o "${SNAPCRAFT_PART_INSTALL}/bin/microcloudd" -tags=agent,libsqlite3 ./cmd/microcloudd
+      go build -trimpath -o "${CRAFT_PART_INSTALL}/bin/microcloud" -tags=agent ./cmd/microcloud
+      go build -trimpath -o "${CRAFT_PART_INSTALL}/bin/microcloudd" -tags=agent,libsqlite3 ./cmd/microcloudd
 
       # Strip binaries
-      strip -s "${SNAPCRAFT_PART_INSTALL}/bin/microcloud"
-      strip -s "${SNAPCRAFT_PART_INSTALL}/bin/microcloudd"
+      strip -s "${CRAFT_PART_INSTALL}/bin/microcloud"
+      strip -s "${CRAFT_PART_INSTALL}/bin/microcloudd"
     prime:
       - bin/microcloud
       - bin/microcloudd
