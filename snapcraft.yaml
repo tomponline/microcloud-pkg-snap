@@ -109,6 +109,17 @@ parts:
       - bin/microcloud
       - bin/microcloudd
 
+  strip:
+    after:
+      - dqlite
+      - raft
+    plugin: nil
+    override-prime: |
+      set -x
+
+      # Strip libraries
+      find "${CRAFT_PRIME}"/lib -type f -exec strip -s {} +
+
   wrappers:
     plugin: dump
     source: snapcraft/
