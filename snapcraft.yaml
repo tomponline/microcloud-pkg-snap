@@ -101,13 +101,24 @@ parts:
       cd microcloud
       go build -trimpath -o "${CRAFT_PART_INSTALL}/bin/microcloud" -tags=agent ./cmd/microcloud
       go build -trimpath -o "${CRAFT_PART_INSTALL}/bin/microcloudd" -tags=agent,libsqlite3 ./cmd/microcloudd
-
-      # Strip binaries
-      strip -s "${CRAFT_PART_INSTALL}/bin/microcloud"
-      strip -s "${CRAFT_PART_INSTALL}/bin/microcloudd"
     prime:
       - bin/microcloud
       - bin/microcloudd
+
+  strip:
+    after:
+      - dqlite
+      - raft
+      - microcloud
+    plugin: nil
+    override-prime: |
+      set -x
+
+      # Strip binaries
+      find "${CRAFT_PRIME}"/bin -type f -exec strip -s {} +
+
+      # Strip libraries
+      find "${CRAFT_PRIME}"/lib -type f -exec strip -s {} +
 
   wrappers:
     plugin: dump
