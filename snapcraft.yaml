@@ -68,7 +68,7 @@ parts:
       set -ex
 
       # Download the dependencies
-      go get -d -v -tags=agent ./...
+      go get -v -tags=agent ./...
     override-build: |
       set -ex
 
