@@ -1,5 +1,5 @@
 name: microcloud
-base: core22
+base: core24
 assumes:
  - snapd2.59
 version: git
@@ -42,18 +42,19 @@ apps:
 
 parts:
   dqlite:
-    after:
-      - raft
     source: https://github.com/canonical/dqlite
-    source-type: git
     source-depth: 1
+    source-type: git
     plugin: autotools
     autotools-configure-parameters:
       - --prefix=
+      - --enable-build-raft
     stage-packages:
+      - liblz4-1
       - libsqlite3-0
       - libuv1
     build-packages:
+      - liblz4-dev
       - libsqlite3-dev
       - libuv1-dev
       - pkg-config
@@ -62,26 +63,6 @@ parts:
     prime:
       - lib/libdqlite*so*
       - lib/*/libuv*
-
-  raft:
-    source: https://github.com/canonical/raft
-    source-type: git
-    source-depth: 1
-    plugin: autotools
-    autotools-configure-parameters:
-      - --prefix=
-    stage-packages:
-      - libuv1
-      - liblz4-1
-    build-packages:
-      - libuv1-dev
-      - liblz4-dev
-      - pkg-config
-    organize:
-      usr/lib/: lib/
-    prime:
-      - lib/libraft*so*
-      - lib/*/libuv.so*
       #- lib/*/liblz4.so*  # use liblz4.so from the base snap
 
   microcloud:
@@ -98,7 +79,7 @@ parts:
       set -ex
 
       # Download the dependencies
-      go get -d -v -tags=agent ./...
+      go get -v -tags=agent ./...
     override-build: |
       set -ex
 
@@ -117,7 +98,6 @@ parts:
   strip:
     after:
       - dqlite
-      - raft
       - microcloud
     plugin: nil
     override-prime: |
