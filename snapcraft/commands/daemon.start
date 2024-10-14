@@ -5,6 +5,9 @@ MICROCLOUDD="microcloudd"
 if [ -x "${SNAP_COMMON}/microcloudd.debug" ]; then
     MICROCLOUDD="${SNAP_COMMON}/microcloudd.debug"
     echo "==> WARNING: Using a custom debug MicroCloud binary!"
+    GOCOVERDIR="${SNAP_COMMON}/data/cover"
+    export GOCOVERDIR
+    mkdir -p "${GOCOVERDIR}"
 fi
 
 exec "${MICROCLOUDD}" --state-dir "${SNAP_COMMON}/state"
