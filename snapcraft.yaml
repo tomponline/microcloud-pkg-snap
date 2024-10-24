@@ -11,17 +11,6 @@ description: |-
 
 confinement: strict
 
-plugs:
- ovn-env:
-   interface: content
-   target: "$SNAP_DATA/microovn/env"
- ovn-certificates:
-   interface: content
-   target: "$SNAP_DATA/microovn/certificates"
- ovn-chassis:
-   interface: content
-   target: "$SNAP_DATA/microovn/chassis"
-
 apps:
   # Service
   daemon:
