@@ -55,7 +55,6 @@ parts:
       #- lib/*/liblz4.so*  # use liblz4.so from the base snap
 
   microcloud:
-    build-attributes: [core22-step-dependencies]
     source: https://github.com/canonical/microcloud
     source-commit: 7c2ea3b08ec4341664df25b50ab84a1f230df504 # Pre 2.1.0
     source-type: git
@@ -65,12 +64,11 @@ parts:
       - go
     plugin: nil
     override-pull: |
-      snapcraftctl pull
+      craftctl default
       set -ex
 
       # Download the dependencies
-      cd microcloud
-      go get -d -v -tags=agent ./...
+      go get -v -tags=agent ./...
     override-build: |
       set -ex
 
@@ -78,14 +76,13 @@ parts:
       git config user.name "MicroCloud snap builder"
 
       # Setup build environment
-      export CGO_CFLAGS="-I${SNAPCRAFT_STAGE}/include/ -I${SNAPCRAFT_STAGE}/usr/local/include/"
-      export CGO_LDFLAGS="-L${SNAPCRAFT_STAGE}/lib/ -L${SNAPCRAFT_STAGE}/usr/local/lib/"
+      export CGO_CFLAGS="-I${CRAFT_STAGE}/include/ -I${CRAFT_STAGE}/usr/local/include/"
+      export CGO_LDFLAGS="-L${CRAFT_STAGE}/lib/ -L${CRAFT_STAGE}/usr/local/lib/"
       export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 
       # Build the binaries
-      cd microcloud
-      go build -o "${SNAPCRAFT_PART_INSTALL}/bin/microcloud" -tags=agent ./cmd/microcloud
-      go build -o "${SNAPCRAFT_PART_INSTALL}/bin/microcloudd" -tags=agent,libsqlite3 ./cmd/microcloudd
+      go build -trimpath -o "${CRAFT_PART_INSTALL}/bin/microcloud" -tags=agent ./cmd/microcloud
+      go build -trimpath -o "${CRAFT_PART_INSTALL}/bin/microcloudd" -tags=agent,libsqlite3 ./cmd/microcloudd
     prime:
       - bin/microcloud
       - bin/microcloudd
