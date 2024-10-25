@@ -2,7 +2,7 @@ name: Builds
 on:
   push:
     branches:
-      - latest-candidate
+      - v2-candidate
 
 permissions:
   contents: read
